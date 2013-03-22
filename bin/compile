@@ -38,20 +38,26 @@ PHP_URL="http://heroku.codeculture.de/php.tar.gz"
 echo "-----> Bundling PHP version $PHP_VERSION"
 curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
-PHP_URL="http://heroku.codeculture.de/libmemcached.tar.gz"
+LMEMCACHED_URL="http://heroku.codeculture.de/libmemcached.tar.gz"
 echo "-----> Bundling libmemcached"
-curl --silent --max-time 60 --location "$PHP_URL" | tar xz
+curl --silent --max-time 60 --location "$LMEMCACHED_URL" | tar xz
+
+LJPEG_URL="http://heroku.codeculture.de/libjpeg.tar.gz"
+echo "-----> Bundling jpeg"
+curl --silent --max-time 60 --location "$LJPEG_URL" | tar xz
+
+LPNG_URL="http://heroku.codeculture.de/libpng.tar.gz"
+echo "-----> Bundling libpng"
+curl --silent --max-time 60 --location "$LPNG_URL" | tar xz
 
 
 # update config files
 cp $LP_DIR/conf/httpd.conf $APACHE_PATH/conf
-rm -rf php/php.ini
 cp $LP_DIR/conf/php.ini php
 
 # make php available on bin
 mkdir -p bin
 ln -s /app/php/bin/php bin/php
-export PATH=$PATH:/app/php/bin
 
 cat >>boot.sh <<EOF
 for var in \`env|cut -f1 -d=\`; do
