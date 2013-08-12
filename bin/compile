@@ -50,6 +50,10 @@ LPNG_URL="http://heroku.codeculture.de/libpng.tar.gz"
 echo "-----> Bundling libpng"
 curl --silent --max-time 60 --location "$LPNG_URL" | tar xz
 
+LYAML_URL="http://heroku.codeculture.de/yaml.tar.gz"
+echo "-----> Bundling libyaml"
+curl --silent --max-time 60 --location "$LYAML_URL" | tar xz
+
 
 # update config files
 cp $LP_DIR/conf/httpd.conf $APACHE_PATH/conf
